@@ -136,7 +136,7 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-DEBUG = int(os.environ.get("DEBUG", default=0))
+
 
 SECRET_KEY = os.environ.get("SECRET_KEY", 'default_secret_key')
 if SECRET_KEY == 'default_secret_key':
