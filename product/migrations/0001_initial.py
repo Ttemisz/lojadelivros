@@ -48,7 +48,8 @@ class Migration(migrations.Migration):
                     "description",
                     models.TextField(blank=True, max_length=500, null=True),
                 ),
-                ("price", models.BooleanField(default=True)),
+                # Alterar o campo 'price' para DecimalField
+                ("price", models.DecimalField(max_digits=15, decimal_places=2)), 
                 ("active", models.BooleanField(default=True)),
                 (
                     "categories",
