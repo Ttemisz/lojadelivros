@@ -3,7 +3,7 @@ from product.models import Category
 
 
 @pytest.mark.django_db
-def teste_do_category():
+def test_do_category():
     category = Category.objects.create(
         title="Livro de programacao",
         slug="livro-de-programacao",
