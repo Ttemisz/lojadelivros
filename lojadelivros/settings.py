@@ -13,13 +13,13 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', 'lojadelivros-production.up.railway.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'lojadelivros-production.up.railway.app']
 
-# Application definition
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 INSTALLED_APPS = [
@@ -71,17 +71,24 @@ WSGI_APPLICATION = "lojadelivros.wsgi.application"
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Database
+
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+
+# URL de conexão
+DATABASE_URL = os.environ.get("DATABASE_URL", "postgresql://postgres:UxWekNVeHlKczEpsLkPQYLHssMBCikAc@autorack.proxy.rlwy.net:12937/railway")
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.postgresql"),
+        "NAME": os.environ.get("SQL_DATABASE", "railway"),
+        "USER": os.environ.get("SQL_USER", "postgres"),  
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "UxWekNVeHlKczEpsLkPQYLHssMBCikAc"),  
+        "HOST": os.environ.get("SQL_HOST", "autorack.proxy.rlwy.net"),  
+        "PORT": os.environ.get("SQL_PORT", "12937"),  
     }
 }
 
-# Password validation
+
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -136,8 +143,4 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-
-
 SECRET_KEY = os.environ.get("SECRET_KEY", 'default_secret_key')
-if SECRET_KEY == 'default_secret_key':
-    print("Aviso: Você está usando uma chave secreta padrão!")
